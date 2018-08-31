@@ -3,7 +3,7 @@
 " Maintainer: dNitro ( ali.zarifkar AT gmail DOT com )
 " Credits: Mikolaj Machowski ( mikmach AT wp DOT pl )
 "          Wei-Ko Kao (othree) ( othree AT gmail DOT com )
-" Last modified: 2016 Oct 31 at 15:10:19 PM
+" Last modified: 2018 Aug 31 at 12:21:32
 
 if !exists('g:aria_attributes_complete')
   let g:aria_attributes_complete = 1
@@ -74,7 +74,7 @@ function! pugcomplete#CompletePug(findstart, base)
       endif
       " lets Check that are we in a multiline state?
       let c = col('.')
-      let save_cursor = getcurpos()
+      let save_cursor = getpos('.')
       " search backward for last paren that is not preceded with ' or \" or space
       let lastParenLine = searchpos('[''" ]\@<!(', 'bW')
       exe "norm! %"
@@ -817,7 +817,7 @@ function! pugcomplete#GetParentTag() " {{{
 endfunction
 " }}}
 function! pugcomplete#GetParentTagShort(context, item) " {{{
-  let save_cursor = getcurpos()
+  let save_cursor = getpos('.')
   call cursor(line('.'), 1)
   execute "norm! ])"
   let col = col('.')
@@ -1024,7 +1024,7 @@ function! pugcomplete#CollectIdorClass(search_for, tag, context, after) " {{{
 
     endfor
     if a:context =~ '=[''"]'
-      let savec = getcurpos()
+      let savec = getpos('.')
       call search('(', 'bW')
       let strf = matchstr(getline('.'), '[0-9A-Za-z_.#-]\+\%' . col('.') . 'c')
       call setpos('.', savec)
@@ -1079,7 +1079,7 @@ endfunction
 " }}}
 function! pugcomplete#FilterClass(context, after, values) " {{{
   if a:context =~ '=[''"]'
-    let save_cursor = getcurpos()
+    let save_cursor = getpos('.')
     call search('(', 'bW')
     let strf = matchstr(getline('.'), '[0-9A-Za-z_.#-]\+\%' . col('.') . 'c')
     call setpos('.', save_cursor)
