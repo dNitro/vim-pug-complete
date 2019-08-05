@@ -3,7 +3,7 @@
 " Maintainer: dNitro ( ali.zarifkar AT gmail DOT com )
 " Credits: Mikolaj Machowski ( mikmach AT wp DOT pl )
 "          Wei-Ko Kao (othree) ( othree AT gmail DOT com )
-" Last modified: 2019 Aug 05 at 16:13:40
+" Last modified: 2019 Aug 05 at 16:40:35
 
 if !exists('g:aria_attributes_complete')
   let g:aria_attributes_complete = 1
@@ -866,6 +866,9 @@ function! pugcomplete#CollectIdorClass(search_for, tag, context, after) " {{{
   let c = col('.')
   call cursor(1,1)
   let headstart = search('\<head\>')
+  if headstart == 0
+    return []
+  endif
   let headend = headstart + 1
   while indent(headend) > indent(headstart) || (getline(headend) =~ '^$' && headend < line('$') )
     let headend = headend + 1
