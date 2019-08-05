@@ -3,7 +3,7 @@
 " Maintainer: dNitro ( ali.zarifkar AT gmail DOT com )
 " Credits: Mikolaj Machowski ( mikmach AT wp DOT pl )
 "          Wei-Ko Kao (othree) ( othree AT gmail DOT com )
-" Last modified: 2018 Aug 31 at 12:21:32
+" Last modified: 2019 Aug 05 at 16:13:40
 
 if !exists('g:aria_attributes_complete')
   let g:aria_attributes_complete = 1
@@ -166,7 +166,6 @@ function! pugcomplete#CompletePug(findstart, base)
     endif
     " }}}
     let parentTag = b:parentTag
-    echom 'parentTag: ' . parentTag
     let stopper = b:pug_stopper
     if context == '' && !exists('b:attrcompl')
       let tag = ''
@@ -608,7 +607,6 @@ function! pugcomplete#CompletePug(findstart, base)
       return final_menu
     endif
     " }}}
-     echom 'context: ' . context
     " Filters completion {{{
     if context =~ '^\s*:.*'
       let filters = ['babel', 'less', 'uglify-js', 'scss', 'markdown-it', 'coffee-script']
@@ -796,7 +794,6 @@ function! pugcomplete#GetParentTag() " {{{
         \ || indent(tagline) > indent(cline))
     let tagline = tagline - 1
   endwhile
-  echom 'tagline: ' . tagline
   if getline(tagline) =~ ':\s\+.\+$'
     if getline(tagline) =~ '\.\s*$'
       let b:pug_stopper = 1
@@ -825,7 +822,6 @@ function! pugcomplete#GetParentTagShort(context, item) " {{{
   call setpos('.', save_cursor)
   let subcontext = substitute(a:context, '\(^.*\%'.col.'c\)\|(.\{-})', '', 'g')
   let list = split(subcontext, ':\ze ')
-  echom 'list: ' . string(list)
   let pTag = matchstr(list[len(list) - a:item], '^\s*\zs[.#]\?[0-9A-Za-z_-]\+')
   if (len(list) - 1 >= a:item && ( list[a:item] =~ '\.\s*$' || list[a:item] =~ '^\s*:' ))
     let b:pug_stopper = 1
